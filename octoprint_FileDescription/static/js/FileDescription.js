@@ -15,15 +15,14 @@ $(function() {
         self.fd_saving = ko.observable(false);
         self.show_error_alert = ko.observable(false);
 
-        console.log(self.filesViewModel);
-        console.log(this);
-
         self.filesViewModel.FD_show_edit = function(data) {
+            // Set all observables for the edit panel
             self.file_name(data.name);
             self.file_path(data.path);
             self.file_description(data.fd_description);
             self.file_tags((data.fd_tags || []).join(','));
             self.show_error_alert(false);
+            
             $('#FD_edit_menu').modal('show');
         }
 
@@ -111,10 +110,8 @@ $(function() {
         // Hook the additional data toggle function
         let oldToggleAdditionalData = self.filesViewModel.toggleAdditionalData;
         self.filesViewModel.toggleAdditionalData = function(data) {
-            // data.fd_description = 'Test description';
             oldToggleAdditionalData(data);
             $('.fd-btn', this.getEntryElement(data)).toggle();
-            console.log(data);
         }
         
         $(document).ready(function() {

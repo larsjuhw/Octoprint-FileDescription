@@ -3,7 +3,7 @@ from __future__ import absolute_import
 
 import octoprint.plugin
 
-class FiledescriptionPlugin(
+class FileDescriptionPlugin(
     octoprint.plugin.StartupPlugin,
     octoprint.plugin.AssetPlugin,
     octoprint.plugin.TemplatePlugin,
@@ -53,7 +53,7 @@ class FiledescriptionPlugin(
     def get_update_information(self):
         return {
             "FileDescription": {
-                "displayName": "Filedescription Plugin",
+                "displayName": "FileDescription Plugin",
                 "displayVersion": self._plugin_version,
 
                 # version check: github repository
@@ -83,7 +83,7 @@ __plugin_pythoncompat__ = ">=3,<4"
 
 def __plugin_load__():
     global __plugin_implementation__
-    __plugin_implementation__ = FiledescriptionPlugin()
+    __plugin_implementation__ = FileDescriptionPlugin()
 
     global __plugin_hooks__
     __plugin_hooks__ = {
