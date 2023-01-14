@@ -2,7 +2,7 @@
 
 Adds a description and tags entry to all gcode files in the file manager. Tags are also searchable.
 
-When you click on the arrow button on a file to expand the info, an edit button should appear next to the file's "load and print" button. Clicking the button opens a panel where you can set the description and/or tag of the file. Setting empty strings will delete the entries.
+When you click on the arrow button on a file to expand the info, an edit button should appear next to the file's "load and print" button. Clicking the button opens a panel where you can set the description and/or tag of the file. After setting a description or tag, you can also click on the "Description: " and "Tags: " fields to open the edit panel. Setting empty strings will delete the entries.
 
 This plugin is fully compatible with my other plugin [ExtraFileInfo](https://github.com/larsjuhw/OctoPrint-ExtraFileInfo).
 
