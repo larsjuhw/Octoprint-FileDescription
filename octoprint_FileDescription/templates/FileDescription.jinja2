@@ -1,0 +1,35 @@
+<div id="FD_edit_menu" class="modal hide">
+    <div class="modal-header">
+        <a href="#" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+        <h3 data-bind="text: file_name()"></h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal">
+            <div class="control-group">
+                <label class="control-label" for="fd_inputDescription">{{ _('Description') }}</label>
+                <div class="controls">
+                    <input type="text" class="input-xlarge" placeholder="Description" id="fd_inputDescription"
+                        data-bind="value: file_description">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="fd_inputTags">{{ _('Tags') }}</label>
+                <div class="controls">
+                    <input type="text" class="input-xlarge" placeholder="Tag1,tag2,tag3.." id="fd_inputTags"
+                        data-bind="value: file_tags">
+                </div>
+            </div>
+        </form>
+        <div class="alert alert-info">Tags are comma separated. For example: "tag1,tag2,tag3".</div>
+        <div class="alert alert-error" data-bind="visible: show_error_alert()">
+            <strong>Error!</strong> Failed to save new values.
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn pull-left" data-dismiss="modal" aria-hidden="true">{{ _('Cancel') }}</a>
+        <a href="#" class="btn btn-primary" data-bind="click: FDSave, enable: !fd_saving()">
+            <i class="fas fa-save"></i> <i class="fa fa-spinner fa-spin" data-bind="visible: fd_saving"
+                style="display: none;"></i> {{ _('Save') }}
+        </a>
+    </div>
+</div>
