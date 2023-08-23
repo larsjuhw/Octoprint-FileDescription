@@ -89,12 +89,12 @@ $(function() {
                 }),
                 contentType: 'application/json; charset-UTF-8'
             }).done(function(data) {
-                console.log('saved new values');
+                console.log('FileDescription: saved new values');
                 self.fd_saving(false);
                 self.filesViewModel.requestData({force: true});
                 $('#FD_edit_menu').modal('hide');
             }).fail(function(data) {
-                console.log('saving values failed');
+                console.log('FileDescription: saving values failed');
                 self.fd_saving(false);
                 self.show_error_alert(true);
             });
@@ -123,7 +123,7 @@ $(function() {
             });
 
             // Add description field to template
-            const regex_description = /(<div class="uploaded">Uploaded: <span data-bind="text: formatTimeAgo\(date\), attr: {title: formatDate\(date\)}"><\/span><\/div>)/m;
+            const regex_description = /(<div class="uploaded">Uploaded: <span data-bind="text: formatTimeAgo\(date(?:, '\?')?\), attr: {title: formatDate\(date(?:, {placeholder:'unknown'})?\)}"><\/span><\/div>)/m;
             const template_description = '<div class="fd_description" data-bind="visible:$data.fd_description, click:function(){$root.FD_show_edit($data)}">Description: \
             <span data-bind="text: $data.fd_description"></span></div><div class="fd_tags" data-bind="visible:$data.fd_tags && $data.fd_tags.length>0, click:function(){$root.FD_show_edit($data)}">Tags: \
             <span data-bind="text: $root.FD_tagsToText($data.fd_tags)"></span></div>'
