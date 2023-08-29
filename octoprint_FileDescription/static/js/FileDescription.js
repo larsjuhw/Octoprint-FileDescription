@@ -107,17 +107,18 @@ $(function() {
             return tags.join(', ');
         }
         
+        // CURRENTLY DISABLED: https://github.com/larsjuhw/Octoprint-FileDescription/issues/1
         // Hook the additional data toggle function
-        let oldToggleAdditionalData = self.filesViewModel.toggleAdditionalData;
-        self.filesViewModel.toggleAdditionalData = function(data) {
-            oldToggleAdditionalData(data);
-            $('.fd-btn', this.getEntryElement(data)).toggle();
-        }
+        // let oldToggleAdditionalData = self.filesViewModel.toggleAdditionalData;
+        // self.filesViewModel.toggleAdditionalData = function(data) {
+        //     oldToggleAdditionalData(data);
+        //     $('.fd-btn', this.getEntryElement(data)).toggle();
+        // }
         
         $(document).ready(function() {
             // Add edit buton to template
             const regex_button = /<div class="btn-group action-buttons">([\s\S]*)<.div>/mi;
-            const template_button = '<div class="btn btn-mini fd-btn" data-bind="click: $root.FD_show_edit" style="display:none;" title="Change description and tags"><i class="fas fa-edit"></i></div>';
+            const template_button = '<div class="btn btn-mini fd-btn" data-bind="click: $root.FD_show_edit" title="Change description and tags"><i class="fas fa-edit"></i></div>';
             $('#files_template_machinecode').text(function() {
                 return $(this).text().replace(regex_button, '<div class="btn-group action-buttons">$1	' + template_button + '</div>');
             });
