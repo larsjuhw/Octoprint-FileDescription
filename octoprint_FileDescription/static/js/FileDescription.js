@@ -123,14 +123,15 @@ $(function() {
                 return $(this).text().replace(regex_button, '<div class="btn-group action-buttons">$1	' + template_button + '</div>');
             });
 
-            // Add description field to template
-            const regex_description = /(<div class="uploaded">Uploaded: <span data-bind="text: formatTimeAgo\(date(?:, '\?')?\), attr: {title: formatDate\(date(?:, {placeholder:'unknown'})?\)}"><\/span><\/div>)/m;
+            // Add description and tags fields to the template
+            const regex_uploaded = /<div class="uploaded">/m;
             const template_description = '<div class="fd_description" data-bind="visible:$data.fd_description, click:function(){$root.FD_show_edit($data)}">Description: \
             <span data-bind="text: $data.fd_description"></span></div><div class="fd_tags" data-bind="visible:$data.fd_tags && $data.fd_tags.length>0, click:function(){$root.FD_show_edit($data)}">Tags: \
             <span data-bind="text: $root.FD_tagsToText($data.fd_tags)"></span></div>'
-            $('#files_template_machinecode').text(function() {
-                return $(this).text().replace(regex_description, template_description + '$1');
-            });
+            
+            // Now insert the description and tags fields into the template
+            const scriptElement = document.querySelector('#files_template_machinecode');
+            scriptElement.innerHTML = scriptElement.innerHTML.replace(regex_uploaded, template_description + '$&');
         });
     }
 
