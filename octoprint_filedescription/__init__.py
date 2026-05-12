@@ -1,7 +1,8 @@
 # coding=utf-8
-from __future__ import absolute_import
-
+import flask
 import octoprint.plugin
+from octoprint.access import ADMIN_GROUP, USER_GROUP
+from octoprint.access.permissions import Permissions
 
 class FileDescriptionPlugin(
     octoprint.plugin.StartupPlugin,
@@ -31,9 +32,7 @@ class FileDescriptionPlugin(
         }
 
     def on_api_command(self, command, data):
-        import flask
-        from octoprint.server import user_permission
-        if not user_permission.can():
+        if not Permissions.PLUGIN_FILEDESCRIPTION_EDIT.can():
             return flask.make_response('Insufficient rights', 401)
 
         if command == 'save_new_values':
@@ -54,7 +53,16 @@ class FileDescriptionPlugin(
             self._storage_interface.set_additional_metadata(path, 'fd_description', description, overwrite=True)
             self._storage_interface.set_additional_metadata(path, 'fd_tags', tags, overwrite=True)
 
-    ##~~ Softwareupdate hook
+    def get_additional_permissions(self):
+        return [
+            {
+                'key': 'EDIT',
+                'name': 'Edit file descriptions',
+                'description': 'Allows editing file descriptions and tags.',
+                'default_groups': [ADMIN_GROUP, USER_GROUP],
+                'roles': ['edit'],
+            }
+        ]
 
     def get_update_information(self):
         return {
@@ -93,5 +101,6 @@ def __plugin_load__():
 
     global __plugin_hooks__
     __plugin_hooks__ = {
+        "octoprint.access.permissions": __plugin_implementation__.get_additional_permissions,
         "octoprint.plugin.softwareupdate.check_config": __plugin_implementation__.get_update_information
     }
