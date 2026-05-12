@@ -128,22 +128,37 @@ $(function() {
         // }
         
         $(document).ready(function() {
-            // Add edit buton to template
-            const regex_button = /<div class="btn-group action-buttons">([\s\S]*)<.div>/mi;
-            const template_button = '<div class="btn btn-mini fd-btn" data-bind="visible: $root.FD_can_edit(), click: $root.FD_show_edit" title="Change description and tags"><i class="fas fa-edit"></i></div>';
-            $('#files_template_machinecode').text(function() {
-                return $(this).text().replace(regex_button, '<div class="btn-group action-buttons">$1	' + template_button + '</div>');
-            });
+            const scriptElement = $('#files_template_machinecode');
+            if (!scriptElement.length) {
+                return;
+            }
+
+            const templateMarkup = scriptElement.html();
+            if (!templateMarkup) {
+                return;
+            }
+
+            const templateRoot = $('<div>' + templateMarkup + '</div>');
+
+            // Add edit button to template
+            const actionButtons = templateRoot.find('.btn-group.action-buttons').first();
+            if (actionButtons.length && actionButtons.find('.fd-btn').length === 0) {
+                const templateButton = $('<div class="btn btn-mini fd-btn" data-bind="visible: $root.FD_can_edit(), click: $root.FD_show_edit" title="Change description and tags"><i class="fas fa-edit"></i></div>');
+                actionButtons.append(templateButton);
+            }
 
             // Add description and tags fields to the template
-            const regex_uploaded = /<div class="uploaded">/m;
-            const template_description = '<div class="fd_description" data-bind="visible:$data.fd_description, click:function(){ $root.FD_show_edit($data); }">Description: \
-            <span data-bind="text: $data.fd_description"></span></div><div class="fd_tags" data-bind="visible:$data.fd_tags && $data.fd_tags.length>0, click:function(){ $root.FD_show_edit($data); }">Tags: \
-            <span data-bind="text: $root.FD_tagsToText($data.fd_tags)"></span></div>'
-            
-            // Now insert the description and tags fields into the template
-            const scriptElement = document.querySelector('#files_template_machinecode');
-            scriptElement.innerHTML = scriptElement.innerHTML.replace(regex_uploaded, template_description + '$&');
+            const uploaded = templateRoot.find('.uploaded').first();
+            if (uploaded.length && templateRoot.find('.fd_description').length === 0) {
+                const templateDescription =
+                    '<div class="fd_description" data-bind="visible:$data.fd_description, click:function(){ $root.FD_show_edit($data); }">Description: ' +
+                    '<span data-bind="text: $data.fd_description"></span></div>' +
+                    '<div class="fd_tags" data-bind="visible:$data.fd_tags && $data.fd_tags.length>0, click:function(){ $root.FD_show_edit($data); }">Tags: ' +
+                    '<span data-bind="text: $root.FD_tagsToText($data.fd_tags)"></span></div>';
+                uploaded.before(templateDescription);
+            }
+
+            scriptElement.html(templateRoot.html());
         });
     }
 
