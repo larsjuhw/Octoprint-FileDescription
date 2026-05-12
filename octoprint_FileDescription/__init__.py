@@ -19,6 +19,9 @@ class FileDescriptionPlugin(
             'css': ['css/FileDescription.css'],
         }
 
+    def is_template_autoescaped(self):
+        return True
+
     def is_api_protected(self):
         return True
 
