@@ -1,0 +1,42 @@
+[build-system]
+requires = [
+    "setuptools>=68",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "Octoprint-FileDescription"
+version = "0.1.2"
+description = "Plugin that adds description and tag fields to files."
+authors = [
+    { name = "Lars Wolter", email = "larswolter@me.com" },
+]
+requires-python = ">=3,<4"
+dependencies = []
+dynamic = [
+    "license",
+]
+
+[project.entry-points."octoprint.plugin"]
+FileDescription = "octoprint_filedescription"
+
+[project.urls]
+Homepage = "https://github.com/larsjuhw/Octoprint-FileDescription"
+
+[project.optional-dependencies]
+develop = [
+    "go-task-bin",
+]
+
+[project.readme]
+file = "README.md"
+content-type = "text/markdown"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = [
+    "octoprint_filedescription",
+    "octoprint_filedescription.*",
+]
