@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "Octoprint-FileDescription"
-version = "0.1.2"
+version = "0.2.0"
 description = "Plugin that adds description and tag fields to files."
 authors = [
     { name = "Lars Wolter", email = "larswolter@me.com" },
